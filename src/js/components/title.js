@@ -8,7 +8,7 @@ class Title extends React.Component {
   }
 
   render () {
-    return <h1>Conway's Game of Life</h1>
+    return <h1>{"Conway's Game of Life"}</h1>
   }
 }
 
