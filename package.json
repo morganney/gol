@@ -1,0 +1,38 @@
+{
+  "name": "gol",
+  "version": "0.0.1",
+  "description": "Conway's Game of Life",
+  "author": "Morgan Ney",
+  "license": "MIT",
+  "private": true,
+  "main": "index.js",
+  "dependencies": {
+    "bootstrap": "3.3.6",
+    "react": "0.14.6",
+    "react-dom": "0.14.6"
+  },
+  "devDependencies": {
+    "babel-core": "6.4.5",
+    "babel-preset-es2015": "6.3.13",
+    "babel-preset-react": "^6.3.13",
+    "babelify": "7.2.0",
+    "browserify": "13.0.0",
+    "del": "2.2.0",
+    "eslint-config-standard": "4.4.0",
+    "eslint-config-standard-react": "1.2.1",
+    "eslint-plugin-react": "3.15.0",
+    "eslint-plugin-standard": "1.3.1",
+    "gulp": "3.9.0",
+    "gulp-babel": "6.1.1",
+    "gulp-eslint": "1.1.1",
+    "gulp-load-plugins": "1.2.0",
+    "gulp-sourcemaps": "1.6.0",
+    "merge-stream": "1.0.0",
+    "object-assign": "4.0.1",
+    "vinyl-source-stream": "1.1.0",
+    "watchify": "3.7.0"
+  },
+  "scripts": {
+    "dev": "./node_modules/.bin/gulp"
+  }
+}

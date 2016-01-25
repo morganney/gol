@@ -1,0 +1,9 @@
+{
+  "extends": [
+    "./node_modules/eslint-config-standard/eslintrc.json",
+    "./node_modules/eslint-config-standard-react/eslintrc.json"
+  ],
+  "rules": {
+    "newline-after-var": 2
+  }
+}
