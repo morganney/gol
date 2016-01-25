@@ -59,7 +59,7 @@ class App extends React.Component {
 
         if (cell === DEAD) {
           // determine if cell remains dead
-          state = numNeighbors === 4 ? ALIVE : DEAD
+          state = numNeighbors === 3 ? ALIVE : DEAD
         }
 
         if (state === ALIVE) {
@@ -111,11 +111,10 @@ class App extends React.Component {
    * @returns {Undefined || Number}
    */
   getCellState (x, y) {
-    if (typeof this.state.cells[x] === 'undefined') {
-      return 0
-    }
+    let width = this.state.cells.length
+    let height = width
 
-    if (typeof this.state.cells[x][y] === 'undefined') {
+    if (x < 0 || x >= width || y < 0 || y >= height) {
       return 0
     }
 

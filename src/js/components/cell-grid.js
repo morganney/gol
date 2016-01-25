@@ -15,8 +15,8 @@ class CellGrid extends React.Component {
     let height = width
     let styles = {width, height}
 
-    this.props.cells.forEach((row, x) => {
-      row.forEach((cell, y) => {
+    this.props.cells.forEach((row) => {
+      row.forEach((cell) => {
         cells.push(<Cell key={idx++} alive={cell === 1} styles={styles} />)
       })
     })
