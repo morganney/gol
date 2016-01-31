@@ -11,13 +11,13 @@ class CellGrid extends React.Component {
   render () {
     let cells = []
     let idx = 0
-    let width = `${(100 / this.props.cells.length)}%`
-    let height = width
-    let styles = {width, height}
+    let size = this.props.cells.length
 
     this.props.cells.forEach((row) => {
       row.forEach((cell) => {
-        cells.push(<Cell key={idx++} alive={cell === 1} styles={styles} />)
+        let classes = cell === 1 ? `alive cell-${size}` : `dead cell-${size}`
+
+        cells.push(<Cell key={idx++} classes={classes} />)
       })
     })
 

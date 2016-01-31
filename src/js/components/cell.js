@@ -8,18 +8,10 @@ class Cell extends React.Component {
   }
 
   render () {
-    return (
-      <span
-        className={this.props.alive ? 'alive' : 'dead'}
-        style={this.props.styles}
-      />
-    )
+    return <span className={this.props.classes} />
   }
 }
 
-Cell.propTypes = {
-  alive: React.PropTypes.bool.isRequired,
-  styles: React.PropTypes.object.isRequired
-}
+Cell.propTypes = {classes: React.PropTypes.string.isRequired}
 
 export default Cell

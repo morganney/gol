@@ -1,0 +1,42 @@
+main {
+  width: 40%;
+  margin: 0 auto;
+}
+section {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  height: 40vw;
+  width: 100%;
+  padding: 1%;
+  background-color: #eee;
+  align-items: center;
+}
+section span {
+  display: block;
+}
+.dead {
+  background-color: #d6e685;
+}
+.alive {
+  background-color: #8cc665;
+}
+.legend i {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  margin: 0 10px 0 0;
+}
+.status span {
+  font-style: italic;
+}
+.cell-styles(@n, @i: 1) when (@i <= @n) {
+  .cell-@{i} {
+    width: (100% / @i);
+    height: (100% / @i);
+  }
+
+  .cell-styles(@n, (@i + 1));
+}
+.cell-styles(80);

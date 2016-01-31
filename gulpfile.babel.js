@@ -17,7 +17,8 @@ let paths = {
   bootstrap_dest: 'dist/css/bootstrap',
   css_dest: 'dist/css',
   js_dest: 'dist/js',
-  js: 'src/**/*.js'
+  js: 'src/**/*.js',
+  less: 'src/css/*.less'
 }
 let opts = assign({}, watchify.args, {
   entries: [paths.entry],
@@ -43,36 +44,44 @@ gulp.task('lint', function () {
     .pipe(eslint.failAfterError())
 })
 
-gulp.task('clean', ['lint'], function () {
+gulp.task('clean', function () {
   return del(paths.dest)
 })
 
-gulp.task('copy', ['clean'], function () {
+gulp.task('copy', function () {
   return gulp.src('node_modules/bootstrap/dist/**/*')
     .pipe(gulp.dest(paths.bootstrap_dest))
 })
 
-gulp.task('bundle', ['clean'], function () {
+gulp.task('less', function () {
+  return gulp.src(paths.less)
+    .pipe($.less())
+    .pipe(gulp.dest('dist/css'))
+})
+
+gulp.task('bundle', ['lint'], function () {
   return bundle()
 })
 
-gulp.task('watch', ['bundle'], function (done) {
-  function update () {
+gulp.task('watch', ['bundle', 'less', 'copy'], function (done) {
+  let less = gulp.watch(paths.less, ['less'])
+  let update = function () {
     let lintStream = gulp.src(paths.js)
       .pipe($.eslint())
       .pipe($.eslint.format())
-      .pipe($.eslint.failAfterError())
     let bundleStream = bundle()
 
     return merge(lintStream, bundleStream)
   }
 
-  b.on('update', update)
-  b.on('log', function (msg) {
+  b.on('update', update).on('log', function (msg) {
     console.log(`bundle updated: ${msg}`)
+  })
+  less.on('change', function (event) {
+    console.log(`file ${event.path} has ${event.type}`)
   })
 
   return done()
 })
 
-gulp.task('default', ['watch', 'copy'])
+gulp.task('default', ['watch'])

@@ -136,8 +136,8 @@ class App extends React.Component {
           isDisabled={isDisabled}
           onGridSizeChange={this.doGridSizeChange.bind(this)}
         />
-        <Status status={this.state.status} />
         <Legend />
+        <Status status={this.state.status} />
         <CellGrid cells={this.state.cells} />
       </div>
     )
