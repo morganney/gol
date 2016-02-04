@@ -38,7 +38,6 @@ class GridSizeSelector extends React.Component {
           <select
             ref='gridSize'
             className='form-control'
-            disabled={this.props.isDisabled}
             onChange={this.handleChange.bind(this)}>
             {this.props.options.map(makeOption)}
           </select>
@@ -50,8 +49,7 @@ class GridSizeSelector extends React.Component {
 
 GridSizeSelector.propTypes = {
   options: React.PropTypes.array,
-  onGridSizeChange: React.PropTypes.func.isRequired,
-  isDisabled: React.PropTypes.bool.isRequired
+  onGridSizeChange: React.PropTypes.func.isRequired
 }
 GridSizeSelector.defaultProps = getDefaultProps()
 

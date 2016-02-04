@@ -1,13 +1,10 @@
 'use strict'
 
 import React from 'react'
-import ReactDOM from 'react-dom'
-import Title from './components/title'
-import Status from './components/status'
-import Legend from './components/legend'
-import GridSizeSelector from './components/grid-size-selector'
-import CellGrid from './components/cell-grid'
-import Utils from './utils'
+import Legend from './legend'
+import Status from './status'
+import CellGrid from './cell-grid'
+import Utils from '../utils'
 
 const GENERATION_TIMESPAN = 2000
 const NOT_RUNNING = 'game not running'
@@ -16,23 +13,35 @@ const ENDED = 'game has ended'
 const ALIVE = 1
 const DEAD = 0
 
-class App extends React.Component {
+class GameOfLife extends React.Component {
   constructor (props) {
     super(props)
-    this.generations = 0
+    this.generations = 1
     this.state = {cells: [], status: NOT_RUNNING}
   }
 
-  doGridSizeChange (size) {
+  handleGridSizeChange (size) {
     let cells = []
     let status = NOT_RUNNING
 
+    this.generations = 1
+    if (this.timeout) {
+      clearTimeout(this.timeout)
+    }
     if (parseInt(size, 10) !== 0) {
       cells = Utils.getRandomMatrix(size)
       status = RUNNING
     }
 
     this.setState({cells, status})
+  }
+
+  getRunningStatus () {
+    return `${RUNNING} generation ${this.generations}`
+  }
+
+  getEndedStatus () {
+    return `${ENDED} after ${this.generations} generations`
   }
 
   /**
@@ -73,8 +82,8 @@ class App extends React.Component {
     this.generations++
 
     if (!foundLivingCell || JSON.stringify(cells) === JSON.stringify(current)) {
-      status = `${ENDED} after ${this.generations} generations`
-      this.generations = 0
+      status = this.getEndedStatus()
+      this.generations = 1
     }
 
     this.setState({cells, status})
@@ -122,30 +131,21 @@ class App extends React.Component {
   }
 
   render () {
-    let isDisabled = false
+    let status = this.state.status
 
     if (this.state.status === RUNNING) {
-      isDisabled = true
-      setTimeout(this.nextGeneration.bind(this), GENERATION_TIMESPAN)
+      status = this.getRunningStatus()
+      this.timeout = setTimeout(this.nextGeneration.bind(this), GENERATION_TIMESPAN)
     }
 
     return (
       <div>
-        <Title />
-        <GridSizeSelector
-          isDisabled={isDisabled}
-          onGridSizeChange={this.doGridSizeChange.bind(this)}
-        />
         <Legend />
-        <Status status={this.state.status} />
+        <Status status={status} />
         <CellGrid cells={this.state.cells} />
       </div>
     )
   }
 }
 
-export default {
-  init (selector) {
-    ReactDOM.render(<App />, document.getElementById(selector))
-  }
-}
+export default GameOfLife
