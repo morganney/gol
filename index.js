@@ -1,5 +1,5 @@
 'use strict'
 
-import GOL from './src/js/gol'
+import App from './src/js/app'
 
-GOL.init(document.currentScript.getAttribute('data-selector'))
+App.init(document.currentScript.getAttribute('data-selector'))
