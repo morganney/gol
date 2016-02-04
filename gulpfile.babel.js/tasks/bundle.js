@@ -1,7 +1,9 @@
 'use strict'
 
 import config from '../config'
+import bs from '../browser-sync'
 import gulp from 'gulp'
+import gutil from 'gulp-util'
 import browserify from 'browserify'
 import watchify from 'watchify'
 import babelify from 'babelify'
@@ -15,9 +17,15 @@ let opts = assign({}, watchify.args, {
 let b = watchify(browserify(opts))
 let bundle = function () {
   return b.bundle()
-    .on('error', function (err) {console.log('error', err)})
+    .on('error', function (err) {
+      gutil.log(`bundle error: ${err.message}`)
+      bs.notify(`Browserify bundle error: ${err.essage}`)
+      gutil.beep()
+      this.emit('end')
+    })
     .pipe(source(config.paths.outfile))
     .pipe(gulp.dest(config.paths.js_dest))
+    .pipe(bs.stream({once: true}))
 }
 
 b.transform(babelify, {presets: ['es2015', 'react'], ignore: /node_modules/})

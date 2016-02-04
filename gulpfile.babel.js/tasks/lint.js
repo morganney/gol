@@ -2,15 +2,28 @@
 
 import config from '../config'
 import gulp from 'gulp'
+import gutil from 'gulp-util'
 import eslint from 'gulp-eslint'
 
-let lintTask = function () {
-  return gulp.src(config.paths.js)
-    .pipe(eslint())
-    .pipe(eslint.format())
-    .pipe(eslint.failAfterError())
+function handleResults (results) {
+  if (results.errorCount) {
+    gutil.beep()
+  }
 }
 
-gulp.task('lint', lintTask)
+function lintTask (failAfterError = false) {
+  let stream = gulp.src(config.paths.js)
+    .pipe(eslint())
+    .pipe(eslint.results(handleResults))
+    .pipe(eslint.format())
+
+  if (failAfterError) {
+    stream.pipe(eslint.failAfterError())
+  }
+
+  return stream
+}
+
+gulp.task('lint', function () { lintTask() })
 
 export default lintTask

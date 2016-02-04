@@ -4,7 +4,7 @@ import config from '../config'
 import gulp from 'gulp'
 import del from 'del'
 
-let cleanTask = function () {
+function cleanTask () {
   return del(config.paths.dest)
 }
 

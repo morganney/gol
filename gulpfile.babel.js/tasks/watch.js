@@ -1,27 +1,27 @@
 'use strict'
 
 import config from '../config'
+import bs from '../browser-sync'
 import {bundler, bundle} from './bundle'
+import lintTask from './lint'
 import gulp from 'gulp'
-import eslint from 'gulp-eslint'
+import gutil from 'gulp-util'
 import merge from 'merge-stream'
 
-let watchTask = function (done) {
+function watchTask (done) {
   let less = gulp.watch(config.paths.less, ['less'])
   let update = function () {
-    let lintStream = gulp.src(config.paths.js)
-      .pipe(eslint())
-      .pipe(eslint.format())
+    let lintStream = lintTask()
     let bundleStream = bundle()
 
     return merge(lintStream, bundleStream)
   }
 
   bundler.on('update', update).on('log', function (msg) {
-    console.log(`bundle updated: ${msg}`)
+    gutil.log(`bundle updated: ${msg}`)
   })
   less.on('change', function (event) {
-    console.log(`file ${event.path} has ${event.type}`)
+    gutil.log(`file ${event.path} has ${event.type}`)
   })
 
   return done()
