@@ -14,9 +14,9 @@ let opts = assign({}, watchify.args, {
   entries: [config.paths.entry],
   debug: true
 })
-let b = watchify(browserify(opts))
+let bundler = watchify(browserify(opts))
 let bundle = function () {
-  return b.bundle()
+  return bundler.bundle()
     .on('error', function (err) {
       gutil.log(`bundle error: ${err.message}`)
       bs.notify(`Browserify bundle error: ${err.essage}`)
@@ -28,10 +28,10 @@ let bundle = function () {
     .pipe(bs.stream({once: true}))
 }
 
-b.transform(babelify, {presets: ['es2015', 'react'], ignore: /node_modules/})
+bundler.transform(babelify, {presets: ['es2015', 'react'], ignore: /node_modules/})
 gulp.task('bundle', ['lint'], function () {
   return bundle()
 })
 
 export default bundle
-export {b as bundler, bundle}
+export {bundler, bundle}

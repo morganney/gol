@@ -2,6 +2,7 @@
   "paths": {
     "entry": "index.js",
     "outfile": "app.js",
+    "buildfile": "app.js",
     "dest": "dist",
     "bootstrap_src": "node_modules/bootstrap/dist/**/*",
     "bootstrap_dest": "dist/css/bootstrap",

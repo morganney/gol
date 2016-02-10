@@ -2,4 +2,4 @@
 
 import requireDir from 'require-dir'
 
-requireDir('./tasks')
+requireDir('./tasks', {recurse: true})
