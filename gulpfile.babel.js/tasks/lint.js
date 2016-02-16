@@ -24,6 +24,6 @@ function lintTask (failAfterError = false) {
   return stream
 }
 
-gulp.task('lint', function () { lintTask() })
+gulp.task('lint', function () { return lintTask() })
 
 export default lintTask
