@@ -1,6 +1,6 @@
 {
   "name": "gol",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Conway's Game of Life",
   "author": "Morgan Ney",
   "license": "MIT",
