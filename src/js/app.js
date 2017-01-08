@@ -9,6 +9,8 @@ import GameOfLife from './components/game-of-life'
 class App extends React.Component {
   constructor (props) {
     super(props)
+
+    this.handleGridSizeChange = this.handleGridSizeChange.bind(this)
   }
 
   handleGridSizeChange (size) {
@@ -19,7 +21,7 @@ class App extends React.Component {
     return (
       <div>
         <Title />
-        <GridSizeSelector onGridSizeChange={this.handleGridSizeChange.bind(this)} />
+        <GridSizeSelector onGridSizeChange={this.handleGridSizeChange} />
         <GameOfLife ref='gol' />
       </div>
     )

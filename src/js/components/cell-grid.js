@@ -4,10 +4,6 @@ import React from 'react'
 import Cell from './cell'
 
 class CellGrid extends React.Component {
-  constructor (props) {
-    super(props)
-  }
-
   render () {
     let cells = []
     let idx = 0

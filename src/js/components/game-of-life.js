@@ -16,8 +16,10 @@ const DEAD = 0
 class GameOfLife extends React.Component {
   constructor (props) {
     super(props)
+
     this.generations = 1
     this.state = {cells: [], status: NOT_RUNNING}
+    this.nextGeneration = this.nextGeneration.bind(this)
   }
 
   handleGridSizeChange (size) {
@@ -135,7 +137,7 @@ class GameOfLife extends React.Component {
 
     if (this.state.status === RUNNING) {
       status = this.getRunningStatus()
-      this.timeout = setTimeout(this.nextGeneration.bind(this), GENERATION_TIMESPAN)
+      this.timeout = setTimeout(this.nextGeneration, GENERATION_TIMESPAN)
     }
 
     return (

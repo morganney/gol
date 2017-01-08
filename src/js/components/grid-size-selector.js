@@ -17,6 +17,8 @@ function getDefaultProps () {
 class GridSizeSelector extends React.Component {
   constructor (props) {
     super(props)
+
+    this.handleChange = this.handleChange.bind(this)
   }
 
   handleChange () {
@@ -38,7 +40,7 @@ class GridSizeSelector extends React.Component {
           <select
             ref='gridSize'
             className='form-control'
-            onChange={this.handleChange.bind(this)}>
+            onChange={this.handleChange}>
             {this.props.options.map(makeOption)}
           </select>
         </p>
